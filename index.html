@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HDR Film Scan Test</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+  /* Layout: one dark viewing column; each sample is a note above a normal | HDR pair that stacks on phones.
+     Single dark look on purpose: HDR highlights are judged against a dark surround. */
+  :root {
+    color-scheme: dark;
+    --bg: #101214;
+    --panel: #181b1f;
+    --rule: #2a2f35;
+    --fg: #d5d9dd;
+    --strong: #f3f5f6;
+    --muted: #8b939b;
+    --accent: #e9b65c;
+    --display: "Space Grotesk", "Inter", system-ui, sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.55 var(--body);
+    padding-block: 32px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .page { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+  header { display: flex; flex-direction: column; gap: 12px; }
+  h1 { font: 600 30px/1.15 var(--display); color: var(--strong); margin: 0; text-wrap: balance; }
+  h2 { font: 600 20px/1.25 var(--display); color: var(--strong); margin: 0; text-wrap: balance; }
+  p { margin: 0; max-width: 68ch; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .eyebrow { font: 500 12px/1.3 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .how { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .how strong { color: var(--strong); font-weight: 600; }
+  section { display: flex; flex-direction: column; gap: 10px; }
+  .num { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+  .pair.narrow { max-width: 760px; }
+  .single { max-width: 760px; margin-top: 6px; }
+  figure { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  img { width: 100%; height: auto; max-width: 100%; display: block; background: var(--panel); }
+  figcaption { color: var(--muted); font-size: 13px; }
+  figcaption b { color: var(--accent); font-weight: 600; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+  .sources { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--muted); }
+  .sources ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 80ch; }
+  .sources a { overflow-wrap: anywhere; }
+  @media (max-width: 640px) {
+    h1 { font-size: 24px; }
+    .pair { grid-template-columns: 1fr; }
+  }
+  html, body { margin: 0; }
+  *, *::before, *::after { box-sizing: border-box; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <span class="eyebrow">Test bench, public sample scans</span>
+    <h1>HDR film scans: normal on the left, HDR on the right</h1>
+    <p>Both pictures in each pair come from the same scan of a film negative. The right-hand one is a single JPEG that carries the normal picture plus a small brightness map (Ultra HDR), so a screen with spare brightness can show highlights brighter than white.</p>
+    <div class="how">
+      <p><strong>How to view.</strong> Use Chrome on an HDR screen, such as a recent MacBook's built-in display or a recent phone, with the screen brightness below maximum. On an ordinary screen the two sides look the same.</p>
+      <p><strong>Check your screen first.</strong> The phone photo just below is a known-good HDR picture. If its bright areas don't glow past the white of this text, your screen or browser isn't showing HDR, and nothing else on the page will either.</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Screen check</h2>
+    <p>A phone photo (Pixel 6 Pro), not ours. It is a genuine Ultra HDR file.</p>
+    <figure class="single"><img src="img/uhdr-ref-pixel-01.jpg" width="4080" height="3072" alt="Reference Ultra HDR phone photo"><figcaption>Known-good Ultra HDR reference</figcaption></figure>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>Truck under trees</h2>
+    <p>A colour negative photographed with a Nikon. Watch the sky through the trees.</p>
+    <p class="num">1.41% of the picture is brighter than white; its brightest 0.1% is 1.81 stops above white. Normal JPEG 627 KB, HDR JPEG 740 KB.</p>
+    <div class="pair">
+      <figure><img src="img/neg-truck-sdr.jpg" width="1380" height="922" alt="Truck under trees, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img src="img/neg-truck-hdr.jpg" width="1380" height="922" alt="Truck under trees, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Garden</h2>
+    <p>A colour negative photographed with a Canon. It is a front-lit scene under clear sky, so almost nothing in it is brighter than white. The two sides should look the same: HDR only changes pictures that have highlights to lift.</p>
+    <p class="num">0.12% of the picture is brighter than white; its brightest 0.1% is 0.03 stops above white. Normal JPEG 1,340 KB, HDR JPEG 1,718 KB.</p>
+    <div class="pair">
+      <figure><img loading="lazy" src="img/neg-garden-sdr.jpg" width="2002" height="1264" alt="Garden, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img loading="lazy" src="img/neg-garden-hdr.jpg" width="2002" height="1264" alt="Garden, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kodak LAD test image</h2>
+    <p>Kodak's Digital LAD test image, a cinema film scan. The white surround and lettering are deliberately far above white.</p>
+    <p class="num">23.08% of the picture is brighter than white; its brightest 0.1% is 4.78 stops above white (shown up to 2.98). Normal JPEG 649 KB, HDR JPEG 1,188 KB.</p>
+    <div class="pair">
+      <figure><img loading="lazy" src="img/kodak-lad-sdr.jpg" width="2048" height="1556" alt="Kodak LAD test image, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img loading="lazy" src="img/kodak-lad-hdr.jpg" width="2048" height="1556" alt="Kodak LAD test image, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Simulated Portra 400 grey ramp</h2>
+    <p>A computed film exposure ramp, not a photograph. The normal version runs out of room at white; the HDR one keeps getting brighter.</p>
+    <p class="num">32.09% of the picture is brighter than white; its brightest 0.1% is 4.49 stops above white (shown up to 2.97). Normal JPEG 89 KB, HDR JPEG 222 KB.</p>
+    <div class="pair">
+      <figure><img loading="lazy" src="img/sim-portra-400-sdr.jpg" width="1920" height="1080" alt="Simulated Portra 400 ramp, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img loading="lazy" src="img/sim-portra-400-hdr.jpg" width="1920" height="1080" alt="Simulated Portra 400 ramp, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Simulated Gold 200 grey ramp</h2>
+    <p class="num">31.88% of the picture is brighter than white; its brightest 0.1% is 3.11 stops above white (shown up to 2.74). Normal JPEG 93 KB, HDR JPEG 237 KB.</p>
+    <div class="pair">
+      <figure><img loading="lazy" src="img/sim-gold-200-sdr.jpg" width="1920" height="1080" alt="Simulated Gold 200 ramp, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img loading="lazy" src="img/sim-gold-200-hdr.jpg" width="1920" height="1080" alt="Simulated Gold 200 ramp, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <span class="eyebrow">Not ours</span>
+    <h2>Someone else's HDR film renders, for comparison</h2>
+    <p>Two negatives rendered by the open-source filmeon project, each with its normal version. They show what another HDR treatment of film looks like.</p>
+    <div class="pair narrow">
+      <figure><img loading="lazy" src="img/filmeon-sdr-1.jpg" width="800" height="1152" alt="filmeon sample 1, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img loading="lazy" src="img/filmeon-hdr-1.jpg" width="800" height="1152" alt="filmeon sample 1, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+    <div class="pair narrow">
+      <figure><img loading="lazy" src="img/filmeon-sdr-2.jpg" width="800" height="1152" alt="filmeon sample 2, normal"><figcaption>Normal</figcaption></figure>
+      <figure><img loading="lazy" src="img/filmeon-hdr-2.jpg" width="800" height="1152" alt="filmeon sample 2, HDR"><figcaption><b>HDR</b></figcaption></figure>
+    </div>
+  </section>
+
+  <hr>
+
+  <section class="sources">
+    <span class="eyebrow">Where the pictures come from</span>
+    <p>Every picture here is a public sample. None is a customer's film.</p>
+    <ul>
+      <li>Truck: pixls.us Play Raw, "Negadoctor color negative" (CC BY-SA, as stated in the post). <a href="https://discuss.pixls.us/t/negadoctor-color-negative/43472">discuss.pixls.us/t/negadoctor-color-negative/43472</a></li>
+      <li>Garden: pixls.us Play Raw, "negadoctor challenge: old negative scanned with a DSLR". <a href="https://discuss.pixls.us/t/negadoctor-challenge-old-negative-scanned-with-a-dslr/25889">discuss.pixls.us/t/negadoctor-challenge-old-negative-scanned-with-a-dslr/25889</a></li>
+      <li>Kodak Digital LAD Test Image, from Kodak's laboratory tools page. <a href="https://www.kodak.com/en/motion/page/laboratory-tools-and-techniques/">kodak.com/en/motion/page/laboratory-tools-and-techniques</a></li>
+      <li>Simulated ramps and the two comparison renders: the filmeon project. <a href="https://github.com/helios1138/filmeon">github.com/helios1138/filmeon</a></li>
+      <li>Screen-check phone photo: Mishaal Rahman's Ultra HDR samples. <a href="https://github.com/MishaalRahmanGH/Ultra_HDR_Samples">github.com/MishaalRahmanGH/Ultra_HDR_Samples</a></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
